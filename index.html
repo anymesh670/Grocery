@@ -163,7 +163,7 @@ body{font-family:'Noto Sans','Segoe UI',sans-serif;min-height:100vh;background:l
       <div class="login-step">
         <div class="login-step-title">🔑 Enter the 6-digit code sent to your email</div>
         <div class="msg-error" id="otpError"></div>
-        <input class="otp-input" id="otpInput" type="number" placeholder="000000"/>
+        <input class="otp-input" id="otpInput" type="number" placeholder="00000000"/>
         <button class="login-btn" id="verifyOtpBtn" onclick="verifyOtp()">✅ Verify and Sign In</button>
         <button class="back-btn" onclick="goBackToEmail()">← Use a different email</button>
       </div>
@@ -362,7 +362,7 @@ async function verifyOtp(){
   const token=document.getElementById("otpInput").value.trim();
   const errEl=document.getElementById("otpError"),btn=document.getElementById("verifyOtpBtn");
   errEl.style.display="none";
-  if(token.length!==6){errEl.textContent="Please enter the 6-digit code.";errEl.style.display="block";return;}
+ if(token.length<6){errEl.textContent="Please enter the full code.";errEl.style.display="block";return;}
   btn.disabled=true;btn.textContent="Verifying...";
   const{data,error}=await sb.auth.verifyOtp({email:userEmail,token,type:"email"});
   btn.disabled=false;btn.textContent="Verify and Sign In";
@@ -578,4 +578,5 @@ document.addEventListener("keydown",e=>{
 })();
 </script>
 </body>
+
 </html>
