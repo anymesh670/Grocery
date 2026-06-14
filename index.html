@@ -350,7 +350,13 @@ async function sendOtp(){
   errEl.style.display="none";sucEl.style.display="none";
   if(!email||!email.includes("@")){errEl.textContent="Please enter a valid email.";errEl.style.display="block";return;}
   btn.disabled=true;btn.textContent="Sending...";
-  const{error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:true}});
+  const{error}=await sb.auth.signInWithOtp({
+  email,
+  options: {
+    shouldCreateUser: true,
+    emailRedirectTo: undefined
+  }
+});
   btn.disabled=false;btn.textContent="Send Login Code →";
   if(error){errEl.textContent="Error: "+error.message;errEl.style.display="block";return;}
   userEmail=email;
